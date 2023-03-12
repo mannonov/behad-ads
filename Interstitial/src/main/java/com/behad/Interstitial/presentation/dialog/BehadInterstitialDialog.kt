@@ -6,8 +6,9 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import com.behad.Interstitial.R
+import com.behad.Interstitial.presentation.model.BehadAdConfig
 
-class BehadInterstitialDialog(context: Context) : Dialog(context) {
+class BehadInterstitialDialog(context: Context, private val behadAdConfig: BehadAdConfig) : Dialog(context) {
     override fun onStart() {
         super.onStart()
         this.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
