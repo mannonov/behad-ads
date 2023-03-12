@@ -6,4 +6,4 @@ import retrofit2.Response
 
 typealias BehadInterstitialResponse = Deferred<Response<ResponseBody?>>
 
-class BehadInterstitial
+class BehadInterstitialNetwork
