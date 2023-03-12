@@ -6,7 +6,7 @@ import retrofit2.http.Query
 
 interface BehadInterstitialService {
 
-    @GET("https://ads.behad.uz/api/v1//filterAd")
+    @GET("/filterAd")
     fun getAd(
         @Query("deviceId") deviceId: String,
         @Query("adId") adId: String,
