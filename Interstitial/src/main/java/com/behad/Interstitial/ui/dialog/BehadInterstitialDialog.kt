@@ -7,5 +7,7 @@ import android.os.Bundle
 class BehadInterstitialDialog(context: Context) : Dialog(context) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setCanceledOnTouchOutside(false)
+        setCancelable(false)
     }
 }
