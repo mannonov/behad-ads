@@ -1,0 +1,3 @@
+package com.behad.Interstitial.presentation.listener
+
+interface BehadInterstitialListener

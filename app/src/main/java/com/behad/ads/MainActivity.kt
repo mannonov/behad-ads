@@ -2,7 +2,7 @@ package com.behad.ads
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.behad.Interstitial.ui.dialog.BehadInterstitialDialog
+import com.behad.Interstitial.presentation.dialog.BehadInterstitialDialog
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

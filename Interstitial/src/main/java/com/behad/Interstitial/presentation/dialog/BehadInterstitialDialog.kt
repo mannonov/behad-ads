@@ -1,4 +1,4 @@
-package com.behad.Interstitial.ui.dialog
+package com.behad.Interstitial.presentation.dialog
 
 import android.app.Dialog
 import android.content.Context
