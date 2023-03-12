@@ -4,4 +4,10 @@
     android:background="@color/behad_white"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="This is Behad Dialog" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,5 +9,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val dialog = BehadInterstitialDialog(context = this)
+        dialog.show()
     }
 }
