@@ -1,6 +1,6 @@
-package com.behad.Interstitial.presentation.listener
+package com.behad.Interstitial.ui.listener
 
-import com.behad.Interstitial.presentation.model.BehadAdConfig
+import com.behad.Interstitial.ui.model.BehadAdConfig
 
 interface BehadInterstitialListener {
 

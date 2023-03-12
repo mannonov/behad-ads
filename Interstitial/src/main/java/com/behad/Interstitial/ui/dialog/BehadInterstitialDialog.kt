@@ -1,4 +1,4 @@
-package com.behad.Interstitial.presentation.dialog
+package com.behad.Interstitial.ui.dialog
 
 import android.app.Dialog
 import android.content.Context
@@ -6,7 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import com.behad.Interstitial.R
-import com.behad.Interstitial.presentation.model.BehadAdConfig
+import com.behad.Interstitial.ui.model.BehadAdConfig
 
 class BehadInterstitialDialog(context: Context, private val behadAdConfig: BehadAdConfig) : Dialog(context) {
     override fun onStart() {

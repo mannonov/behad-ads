@@ -1,4 +1,4 @@
-package com.behad.Interstitial.presentation.model
+package com.behad.Interstitial.ui.model
 
 typealias BehadAdConfig = BAdConfig
 
