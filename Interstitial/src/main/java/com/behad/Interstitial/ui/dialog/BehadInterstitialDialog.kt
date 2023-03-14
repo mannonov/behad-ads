@@ -5,10 +5,11 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import com.behad.Interstitial.R
-import com.behad.Interstitial.ui.model.BehadAdConfig
+import com.behad.Interstitial.ui.model.InterstitialData
 
-class BehadInterstitialDialog(context: Context, private val behadAdConfig: BehadAdConfig) : Dialog(context) {
+class BehadInterstitialDialog(context: Context, private val interData: InterstitialData) : Dialog(context) {
     override fun onStart() {
         super.onStart()
         this.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -20,5 +21,6 @@ class BehadInterstitialDialog(context: Context, private val behadAdConfig: Behad
         setContentView(R.layout.layout_behad_interstital_dialog)
         setCanceledOnTouchOutside(false)
         setCancelable(false)
+        Log.d("interData", "onCreate: $interData")
     }
 }

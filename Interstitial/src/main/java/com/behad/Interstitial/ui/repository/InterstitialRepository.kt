@@ -8,12 +8,12 @@ import com.behad.Interstitial.ui.service.BehadInterstitialService
 typealias GetInterstitialFromBackendParam = GetInterstitialFromBackendParams
 typealias GetInterstitialFromBackendResult = Result<InterstitialData?>
 
-class InterstitialRepository(private val repository: BehadInterstitialService) {
+class InterstitialRepository(private val service: BehadInterstitialService) {
 
     suspend fun getInterstitialFromBackend(param: GetInterstitialFromBackendParam): GetInterstitialFromBackendResult {
         return try {
             with(
-                repository.getAdd(deviceId = param.deviceId, adId = param.adId, type = param.type)
+                service.getAdd(deviceId = param.deviceId, adId = param.adId, type = param.type)
                     .await(),
             ) {
                 if (isSuccessful) {
