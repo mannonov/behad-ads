@@ -8,9 +8,11 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.VideoView
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.motion.widget.MotionLayout
 import com.behad.Interstitial.R
 import com.behad.Interstitial.ui.constan.BehadInterstitialConstants
@@ -58,6 +60,8 @@ class BehadInterstitialDialog(context: Context, private val interData: Interstit
     private var tvVideoDescription: TextView? = null
     private var btnGoToLinkVideo: Button? = null
     private var videoHasEnded: Boolean = false
+    private var skipVideoView: CardView? = null
+    private var closeVideView: CardView? = null
     private fun setupVideoInterstitialAd() {
         initInterVideoViews()
         interVideoView?.setVideoPath("https://user-images.githubusercontent.com/74708507/225076216-e07f6177-b9d9-4400-ad26-8939965a6dbf.MP4")
@@ -77,11 +81,19 @@ class BehadInterstitialDialog(context: Context, private val interData: Interstit
             videoHasEnded = true
             checkForVideoEnd()
         }
+        skipVideoView?.setOnClickListener {
+            closeVideView?.visibility = View.VISIBLE
+        }
+        closeVideView?.setOnClickListener {
+            interVideoView?.stopPlayback()
+        }
     }
 
     private fun checkForVideoEnd() {
         if (videoHasEnded) {
             interMotionLayout?.transitionToEnd()
+        } else {
+            skipVideoView?.visibility = View.VISIBLE
         }
     }
 
@@ -91,5 +103,7 @@ class BehadInterstitialDialog(context: Context, private val interData: Interstit
         tvVideoTitle = findViewById(R.id.tv_video_title)
         tvVideoDescription = findViewById(R.id.tv_video_description)
         btnGoToLinkVideo = findViewById(R.id.btn_go_to_link_video)
+        skipVideoView = findViewById(R.id.skip_video_container)
+        closeVideView = findViewById(R.id.stop_video_container)
     }
 }
