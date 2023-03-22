@@ -2,6 +2,7 @@ package com.behad.Interstitial.ui.model
 
 import com.google.gson.annotations.SerializedName
 
+typealias BehadInterInterstitialData = InterstitialData
 data class InterstitialData(
     @SerializedName("advertisement_description")
     val advertisementDescription: String? = null,

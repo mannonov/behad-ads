@@ -1,20 +1,28 @@
 package com.behad.Interstitial.ui.manager
 
-import com.behad.Interstitial.ui.manager.listener.BehadInterstitialListener
+import com.behad.Interstitial.ui.dialog.BehadInterstitialAdImpl
+import com.behad.Interstitial.ui.dialog.callback.BehadAdLoadCallback
+import com.behad.Interstitial.ui.exception.BackendErrorException
+import com.behad.Interstitial.ui.factory.BehadFactory
+import com.behad.Interstitial.ui.model.BehadInterInterstitialData
 import com.behad.Interstitial.ui.model.GetInterstitialFromBackendParams
-import com.behad.Interstitial.ui.model.InterstitialData
 import com.behad.Interstitial.ui.repository.InterstitialRepository
 import kotlinx.coroutines.*
 
-class BehadInterstitialManager(private val repository: InterstitialRepository) {
+internal class BehadInterstitialManager {
 
     private val interstitialJob = Job()
     private val coroutineScope = CoroutineScope(Dispatchers.IO + interstitialJob)
-    private var behadInterstitialListener: BehadInterstitialListener? = null
+    private val repository: InterstitialRepository = BehadFactory.getBehadRepository()
+    private var behadAdLoadCallback: BehadAdLoadCallback? = null
 
-    fun loadInterstitialAd(deviceId: String, adId: String) {
+    fun loadInterstitialAd(
+        deviceId: String,
+        adId: String,
+        behadAdLoadCallback: BehadAdLoadCallback,
+    ) {
+        this.behadAdLoadCallback = behadAdLoadCallback
         coroutineScope.launch {
-            handleOnLoading(true)
             repository.getInterstitialFromBackend(
                 param = GetInterstitialFromBackendParams(
                     deviceId,
@@ -22,32 +30,26 @@ class BehadInterstitialManager(private val repository: InterstitialRepository) {
                     "inters",
                 ),
             ).onSuccess {
-                handleOnAdLoaded(it)
+                if (it != null) {
+                    handleOnAdLoaded(it)
+                } else {
+                    handleOnError(BackendErrorException("Response is null"))
+                }
             }.onFailure {
                 handleOnError(it)
             }
         }
     }
 
-    fun setListener(behadInterstitialListener: BehadInterstitialListener) {
-        this.behadInterstitialListener = behadInterstitialListener
-    }
-
-    private suspend fun handleOnLoading(boolean: Boolean) {
+    private suspend fun handleOnAdLoaded(data: BehadInterInterstitialData) {
         withContext(Dispatchers.Main) {
-            behadInterstitialListener?.onLoading(boolean)
-        }
-    }
-
-    private suspend fun handleOnAdLoaded(data: InterstitialData?) {
-        withContext(Dispatchers.Main) {
-            behadInterstitialListener?.onAdLoaded(data = data)
+            behadAdLoadCallback?.onAdLoaded(data = BehadInterstitialAdImpl(data))
         }
     }
 
     private suspend fun handleOnError(error: Throwable) {
         withContext(Dispatchers.Main) {
-            behadInterstitialListener?.onError(error)
+            behadAdLoadCallback?.onAdFailedToLoad(error)
         }
     }
 }
