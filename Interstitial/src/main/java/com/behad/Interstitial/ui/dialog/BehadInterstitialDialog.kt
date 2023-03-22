@@ -11,16 +11,14 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.VideoView
+import android.widget.*
 import androidx.cardview.widget.CardView
 import com.behad.Interstitial.R
 import com.behad.Interstitial.ui.constan.BehadInterstitialConstants
 import com.behad.Interstitial.ui.model.BehadInterInterstitialData
+import com.bumptech.glide.Glide
 
-private const val TIME_OUT_TIME = 5000L
+private const val TIME_OUT_TIME = 6000L
 private const val INTERVAL = 1000L
 
 internal class BehadInterstitialDialog(
@@ -42,6 +40,10 @@ internal class BehadInterstitialDialog(
                 setContentView(R.layout.layout_behad_interstital_video_dialog)
                 setupVideoInterstitialAd()
             }
+            BehadInterstitialConstants.IMAGE_TYPE -> {
+                setContentView(R.layout.layout_behad_interstital_image_dialog)
+                setupImageInterstitialAd()
+            }
             else -> dismiss()
         }
         setCanceledOnTouchOutside(false)
@@ -49,11 +51,73 @@ internal class BehadInterstitialDialog(
         Log.d("interData", "onCreate: $data")
     }
 
-    private var interFinishCountDownTimer: CountDownTimer? =
+    private var interImageFinishCountDownTimer: CountDownTimer? =
         object : CountDownTimer(TIME_OUT_TIME, INTERVAL) {
-            override fun onTick(p0: Long) {}
+            override fun onTick(p0: Long) {
+                skipAfterInterImageView?.visibility = View.VISIBLE
+                tvSkipAfterInterImage?.text =
+                    "${tvSkipAfterInterImage?.context?.getString(R.string.you_can_close_image)} ${p0 / 1000}"
+            }
 
             override fun onFinish() {
+                skipAfterInterImageView?.visibility = View.GONE
+                closeImageView?.visibility = View.VISIBLE
+                interImageContainer?.visibility = View.VISIBLE
+            }
+        }
+
+    private fun setupImageInterstitialAd() {
+        initInterImageViews()
+        interImageView?.let {
+            Glide.with(it).load(data.advertisementLink).into(it)
+        }
+        interImageFinishCountDownTimer?.start()
+        interImageTitle?.text = data.advertisementTitle
+        interImageDesc?.text = data.advertisementDescription
+        initInterImageListeners()
+    }
+
+    private fun initInterImageListeners() {
+        btnInterGoToLinkImage?.setOnClickListener {
+            videoGoToLink()
+        }
+        closeImageView?.setOnClickListener {
+            dismiss()
+        }
+        interImageView?.setOnClickListener {
+            videoGoToLink()
+        }
+    }
+
+    private var interImageView: ImageView? = null
+    private var skipAfterInterImageView: CardView? = null
+    private var tvSkipAfterInterImage: TextView? = null
+    private var closeImageView: CardView? = null
+    private var interImageContainer: LinearLayout? = null
+    private var interImageTitle: TextView? = null
+    private var interImageDesc: TextView? = null
+    private var btnInterGoToLinkImage: Button? = null
+    private fun initInterImageViews() {
+        interImageView = findViewById(R.id.img_inter)
+        skipAfterInterImageView = findViewById(R.id.skip_image_after)
+        tvSkipAfterInterImage = findViewById(R.id.tv_skip_image_after)
+        closeImageView = findViewById(R.id.stop_image_container)
+        interImageContainer = findViewById(R.id.image_inter_container)
+        interImageTitle = findViewById(R.id.tv_image_title)
+        interImageDesc = findViewById(R.id.tv_image_description)
+        btnInterGoToLinkImage = findViewById(R.id.btn_go_to_link_image)
+    }
+
+    private var interVideoFinishCountDownTimer: CountDownTimer? =
+        object : CountDownTimer(TIME_OUT_TIME, INTERVAL) {
+            override fun onTick(p0: Long) {
+                skipVideAfterView?.visibility = View.VISIBLE
+                skipVideoAfterText?.text =
+                    "${skipVideoAfterText?.context?.getString(R.string.you_can_skip_video)} ${p0 / 1000}"
+            }
+
+            override fun onFinish() {
+                skipVideAfterView?.visibility = View.GONE
                 checkForVideoEnd()
             }
         }
@@ -92,7 +156,7 @@ internal class BehadInterstitialDialog(
         interVideoView?.setOnPreparedListener {
             it.setOnInfoListener { _, i, _ ->
                 if (i == MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START) {
-                    interFinishCountDownTimer?.start()
+                    interVideoFinishCountDownTimer?.start()
                     videoHasEnded = false
                 }
                 Log.d("videoViewState", "initVideoListeners: $i")
@@ -100,6 +164,7 @@ internal class BehadInterstitialDialog(
             }
         }
         interVideoView?.setOnCompletionListener {
+            closeVideView?.visibility = View.VISIBLE
             videoHasEnded = true
             checkForVideoEnd()
         }
@@ -128,6 +193,8 @@ internal class BehadInterstitialDialog(
     private var skipVideoView: CardView? = null
     private var closeVideView: CardView? = null
     private var videoInterContainer: LinearLayout? = null
+    private var skipVideAfterView: CardView? = null
+    private var skipVideoAfterText: TextView? = null
     private fun initInterVideoViews() {
         interVideoView = findViewById(R.id.interVideoView)
         tvVideoTitle = findViewById(R.id.tv_video_title)
@@ -136,6 +203,8 @@ internal class BehadInterstitialDialog(
         skipVideoView = findViewById(R.id.skip_video_container)
         closeVideView = findViewById(R.id.stop_video_container)
         videoInterContainer = findViewById(R.id.video_inter_container)
+        skipVideAfterView = findViewById(R.id.skip_video_after)
+        skipVideoAfterText = findViewById(R.id.tv_skip_video_after)
     }
 
     override fun onClick(view: View?) {

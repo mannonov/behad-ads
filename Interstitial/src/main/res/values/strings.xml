@@ -4,4 +4,7 @@
     <string name="skip_video">Skip video</string>
     <string name="close_vide">Close video</string>
     <string name="close_video">Close Ad</string>
+    <string name="you_can_skip_video">You can skip video after</string>
+    <string name="you_can_close_image">You can close ad after</string>
+    <string name="close_ad">Close Ad</string>
 </resources>
