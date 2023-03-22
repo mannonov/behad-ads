@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 
-typealias BehadInterstitialResponse = Deferred<Response<BehadInterstitial>>
+internal typealias BehadInterstitialResponse = Deferred<Response<BehadInterstitial>>
 
-data class BehadInterstitial(
+internal data class BehadInterstitial(
     @SerializedName("data")
     val interstitialData: InterstitialData?,
     val message: String?,

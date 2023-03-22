@@ -4,7 +4,7 @@ import com.behad.Interstitial.ui.model.BehadInterstitialResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface BehadInterstitialService {
+internal interface BehadInterstitialService {
 
     @GET("filterAd")
     fun getAdd(

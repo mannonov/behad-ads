@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/inter_video_motion"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/behad_white"
-    app:layoutDescription="@xml/layout_behad_interstital_video_dialog_scene">
+    android:background="@color/behad_white">
 
     <VideoView
         android:id="@+id/interVideoView"
@@ -21,9 +20,10 @@
     <LinearLayout
         android:id="@+id/video_inter_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
+        android:layout_height="0dp"
+        android:paddingHorizontal="16dp"
         android:gravity="center"
+        android:background="@color/behad_white"
         android:orientation="vertical"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -103,6 +103,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         app:cardCornerRadius="50dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -111,13 +112,12 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:gravity="center"
-            android:orientation="horizontal"
-            android:visibility="gone">
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/skip_video" />
+                android:text="@string/close_video" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -128,4 +128,4 @@
 
     </androidx.cardview.widget.CardView>
 
-</androidx.constraintlayout.motion.widget.MotionLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

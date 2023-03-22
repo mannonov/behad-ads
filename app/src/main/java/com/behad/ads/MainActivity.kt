@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity(), BehadAdLoadCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        BehadInterstitialAd.load("f571812b-9aca-4cf9-8800-1ea5113127bd", "BN-67688888", this)
+        BehadInterstitialAd.load("5b72ef1c-0c05-49f2-8dae-75adfc6d82a0", "BN-67688888", this)
     }
 
     override fun onAdFailedToLoad(error: Throwable) {
@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity(), BehadAdLoadCallback {
     override fun onAdLoaded(data: BehadInterstitialAd) {
         super.onAdLoaded(data)
         behadInterstitialAd = data
+        behadInterstitialAd?.show(this)
         Toast.makeText(this, "success = $data", Toast.LENGTH_SHORT).show()
     }
 }

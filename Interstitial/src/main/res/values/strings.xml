@@ -3,4 +3,5 @@
     <string name="go_to_link">Go to link</string>
     <string name="skip_video">Skip video</string>
     <string name="close_vide">Close video</string>
+    <string name="close_video">Close Ad</string>
 </resources>

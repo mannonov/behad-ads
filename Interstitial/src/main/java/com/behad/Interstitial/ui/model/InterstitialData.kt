@@ -2,16 +2,19 @@ package com.behad.Interstitial.ui.model
 
 import com.google.gson.annotations.SerializedName
 
-typealias BehadInterInterstitialData = InterstitialData
-data class InterstitialData(
+internal typealias BehadInterInterstitialData = InterstitialData
+
+internal data class InterstitialData(
     @SerializedName("advertisement_description")
     val advertisementDescription: String? = null,
     @SerializedName("advertisement_link")
-    val advertisementLink: String? = null,
+    var advertisementLink: String? = null,
     @SerializedName("advertisement_media_type")
-    val advertisementMediaType: String? = null,
+    var advertisementMediaType: String? = null,
     @SerializedName("advertisement_title")
     val advertisementTitle: String? = null,
     @SerializedName("campaign_id")
     val campaignId: String? = null,
+    var userId: String? = null,
+    var adId: String? = null,
 )

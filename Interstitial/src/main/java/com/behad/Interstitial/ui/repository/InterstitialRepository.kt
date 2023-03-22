@@ -5,8 +5,8 @@ import com.behad.Interstitial.ui.model.GetInterstitialFromBackendParams
 import com.behad.Interstitial.ui.model.InterstitialData
 import com.behad.Interstitial.ui.service.BehadInterstitialService
 
-typealias GetInterstitialFromBackendParam = GetInterstitialFromBackendParams
-typealias GetInterstitialFromBackendResult = Result<InterstitialData?>
+internal typealias GetInterstitialFromBackendParam = GetInterstitialFromBackendParams
+internal typealias GetInterstitialFromBackendResult = Result<InterstitialData?>
 
 internal class InterstitialRepository(private val service: BehadInterstitialService) {
 
@@ -17,7 +17,12 @@ internal class InterstitialRepository(private val service: BehadInterstitialServ
                     .await(),
             ) {
                 if (isSuccessful) {
-                    Result.success(body()?.interstitialData)
+                    Result.success(
+                        body()?.interstitialData.also {
+                            it?.userId = param.deviceId
+                            it?.adId = param.adId
+                        },
+                    )
                 } else {
                     Result.failure(
                         BackendErrorException(
