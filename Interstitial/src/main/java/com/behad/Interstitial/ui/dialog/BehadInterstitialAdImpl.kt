@@ -8,9 +8,9 @@ internal class BehadInterstitialAdImpl(private val data: BehadInterInterstitialD
     BehadInterstitialAd() {
 
     override fun show(activity: Activity) {
-        data.advertisementMediaType = BehadInterstitialConstants.IMAGE_TYPE
+        data.advertisementMediaType = BehadInterstitialConstants.GIF_TYPE
         data.advertisementLink =
-            "https://www.simplilearn.com/ice9/free_resources_article_thumb/How_to_Become_an_Android_Developer.jpg"
+            "https://www.easygifanimator.net/images/samples/video-to-gif-sample.gif"
         BehadInterstitialDialog(activity, data).show()
     }
 }

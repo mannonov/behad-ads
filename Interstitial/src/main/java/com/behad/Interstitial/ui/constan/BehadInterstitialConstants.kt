@@ -6,4 +6,5 @@ object BehadInterstitialConstants {
     const val BASE_URL = "https://ads.behad.uz/api/v1/"
     const val VIDEO_TYPE = "video"
     const val IMAGE_TYPE = "image"
+    const val GIF_TYPE = "gif"
 }

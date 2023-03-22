@@ -44,6 +44,10 @@ internal class BehadInterstitialDialog(
                 setContentView(R.layout.layout_behad_interstital_image_dialog)
                 setupImageInterstitialAd()
             }
+            BehadInterstitialConstants.GIF_TYPE -> {
+                setContentView(R.layout.layout_behad_interstital_image_dialog)
+                setUpGifInterstitialAd()
+            }
             else -> dismiss()
         }
         setCanceledOnTouchOutside(false)
@@ -65,6 +69,17 @@ internal class BehadInterstitialDialog(
                 interImageContainer?.visibility = View.VISIBLE
             }
         }
+
+    private fun setUpGifInterstitialAd() {
+        initInterImageViews()
+        interImageView?.let {
+            Glide.with(it).load(data.advertisementLink).into(it)
+        }
+        interImageFinishCountDownTimer?.start()
+        interImageTitle?.text = data.advertisementTitle
+        interImageDesc?.text = data.advertisementDescription
+        initInterImageListeners()
+    }
 
     private fun setupImageInterstitialAd() {
         initInterImageViews()
