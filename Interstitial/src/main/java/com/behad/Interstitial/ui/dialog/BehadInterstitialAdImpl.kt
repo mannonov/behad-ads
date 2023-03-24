@@ -1,7 +1,6 @@
 package com.behad.Interstitial.ui.dialog
 
 import android.app.Activity
-import com.behad.Interstitial.ui.constan.BehadInterstitialConstants
 import com.behad.Interstitial.ui.model.BehadInterInterstitialData
 
 internal class BehadInterstitialAdImpl(private val data: BehadInterInterstitialData) :
